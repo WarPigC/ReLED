@@ -1,0 +1,15 @@
+services:
+  reled:
+    build: .
+    container_name: reled
+    restart: unless-stopped
+    ports:
+      - "9000:8000"
+    volumes:
+      # Named volume keeps led.db alive across restarts and image rebuilds
+      - reled-data:/app/data
+    environment:
+      - DB_DIR=/app/data
+
+volumes:
+  reled-data:

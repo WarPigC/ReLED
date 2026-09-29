@@ -5,8 +5,13 @@ from pydantic import BaseModel
 from typing import Optional
 import aiosqlite
 import asyncio
+import os
 
-DB_PATH = "led.db"
+# In Docker, DB_DIR is set to /app/data (a named volume mount).
+# Locally (uv run), it falls back to the project root.
+_db_dir = os.environ.get("DB_DIR", ".")
+os.makedirs(_db_dir, exist_ok=True)
+DB_PATH = os.path.join(_db_dir, "led.db")
 
 
 # --- Schemas ---
@@ -59,7 +64,7 @@ async def lifespan(app: FastAPI):
     yield
 
 
-app = FastAPI(title="Lumina LED API", lifespan=lifespan)
+app = FastAPI(title="ReLED API", lifespan=lifespan)
 
 
 # --- Active State endpoints (used by both the UI and the ESP32) ---
