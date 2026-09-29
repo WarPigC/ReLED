@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lumina Control</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>Lumina</h1>
+            <p class="subtitle">LED Studio</p>
+        </header>
+
+        <!-- Tab Nav -->
+        <nav class="tab-nav">
+            <button class="tab-btn active" data-tab="control"><i class="fa-solid fa-sliders"></i> Control</button>
+            <button class="tab-btn" data-tab="patterns"><i class="fa-solid fa-layer-group"></i> Patterns</button>
+        </nav>
+
+        <!-- ═══════════════ CONTROL TAB ═══════════════ -->
+        <div id="tab-control" class="tab-content active">
+
+            <section class="glass-card status-card">
+                <div class="status-indicator">
+                    <div class="status-dot" id="connection-dot"></div>
+                    <span id="connection-text">Live</span>
+                </div>
+                <div class="preview-orb" id="preview-orb"></div>
+            </section>
+
+            <section class="glass-card control-group">
+                <h2>Mode</h2>
+                <div class="mode-grid" id="mode-grid">
+                    <button class="mode-btn active" data-mode="solid"><i class="fa-solid fa-droplet"></i> Solid</button>
+                    <button class="mode-btn" data-mode="rainbow"><i class="fa-solid fa-rainbow"></i> Rainbow</button>
+                    <button class="mode-btn" data-mode="pulse"><i class="fa-solid fa-heart-pulse"></i> Pulse</button>
+                    <button class="mode-btn" data-mode="chase"><i class="fa-solid fa-meteor"></i> Chase</button>
+                    <button class="mode-btn" data-mode="sparkle"><i class="fa-solid fa-wand-magic-sparkles"></i> Sparkle</button>
+                </div>
+            </section>
+
+            <section class="glass-card control-group" id="color-section">
+                <h2>Color</h2>
+                <div class="color-picker-wrapper">
+                    <input type="color" id="color-picker" value="#ff0000">
+                    <div class="color-hex" id="color-hex">#FF0000</div>
+                </div>
+                <div class="preset-colors">
+                    <div class="preset-color" style="background: #ff0000" data-color="#ff0000"></div>
+                    <div class="preset-color" style="background: #ff8c00" data-color="#ff8c00"></div>
+                    <div class="preset-color" style="background: #ffd700" data-color="#ffd700"></div>
+                    <div class="preset-color" style="background: #00ff00" data-color="#00ff00"></div>
+                    <div class="preset-color" style="background: #00ffff" data-color="#00ffff"></div>
+                    <div class="preset-color" style="background: #0000ff" data-color="#0000ff"></div>
+                    <div class="preset-color" style="background: #8a2be2" data-color="#8a2be2"></div>
+                    <div class="preset-color" style="background: #ff1493" data-color="#ff1493"></div>
+                    <div class="preset-color" style="background: #ffffff" data-color="#ffffff"></div>
+                </div>
+            </section>
+
+            <section class="glass-card control-group">
+                <div class="slider-header">
+                    <h2>Brightness</h2>
+                    <span id="brightness-val">100%</span>
+                </div>
+                <input type="range" id="brightness-slider" min="0" max="255" value="255" class="custom-slider">
+            </section>
+
+            <section class="glass-card control-group" id="speed-section" style="display:none;">
+                <div class="slider-header">
+                    <h2>Speed</h2>
+                    <span id="speed-val">50%</span>
+                </div>
+                <input type="range" id="speed-slider" min="1" max="100" value="50" class="custom-slider speed-slider">
+            </section>
+
+            <!-- Save current as pattern -->
+            <section class="glass-card control-group">
+                <h2>Save as Pattern</h2>
+                <div class="save-row">
+                    <input type="text" id="pattern-name-input" placeholder="e.g. Movie Night" class="text-input">
+                    <button id="save-pattern-btn" class="action-btn"><i class="fa-solid fa-floppy-disk"></i></button>
+                </div>
+            </section>
+        </div>
+
+        <!-- ═══════════════ PATTERNS TAB ═══════════════ -->
+        <div id="tab-patterns" class="tab-content">
+            <section class="glass-card control-group">
+                <h2>Saved Patterns</h2>
+                <div id="patterns-list">
+                    <p class="empty-msg">No patterns saved yet.</p>
+                </div>
+            </section>
+        </div>
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
