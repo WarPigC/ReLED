@@ -1,0 +1,24 @@
+name: Deploy ReLED
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Build & Deploy on Pi
+    # This runs directly on your Pi 5 (self-hosted runner)
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout latest code
+        uses: actions/checkout@v4
+
+      - name: Rebuild and restart container
+        run: |
+          docker compose up --build -d --remove-orphans
+
+      - name: Clean up old images
+        run: |
+          docker image prune -f
