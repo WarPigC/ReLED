@@ -11,3 +11,9 @@ wheels/
 
 # 'env'
 sketch/credentials.h
+
+# GitHub Actions self-hosted runner (installed locally on Pi, not part of repo)
+actions-runner/
+
+# Local SQLite DB
+led.db

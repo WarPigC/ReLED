@@ -7,14 +7,9 @@ on:
 
 jobs:
   deploy:
-    name: SSH & Deploy
-    runs-on: ubuntu-latest
+    name: Deploy on Pi
+    runs-on: self-hosted
 
     steps:
-      - name: Run deploy script on Pi
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.PI_HOST }}
-          username: ${{ secrets.PI_USER }}
-          key: ${{ secrets.PI_SSH_KEY }}
-          script: bash /home/piani/hdd/reLED/deploy.sh
+      - name: Run deploy script
+        run: bash /home/piani/hdd/reLED/deploy.sh
