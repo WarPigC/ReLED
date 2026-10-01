@@ -3,9 +3,7 @@
 #include <FastLED.h>
 #include <HTTPClient.h>
 #include <WiFi.h>
-
-#define WIFI_SSID "Aniruddh#5g"
-#define WIFI_PASSWORD "EliteApex1101"
+#include "credentials.h"
 
 #define SERVER_URL "http://192.168.29.155:9000/api/state"
 
@@ -47,7 +45,7 @@ bool fetchState() {
 
   int httpCode = http.GET();
 
-  if (httpCode != HTTP_CODE_200) {
+  if (httpCode != HTTP_CODE_OK) {
     Serial.printf("HTTP GET failed, code: %d\n", httpCode);
     http.end();
     return false;
@@ -127,11 +125,11 @@ void setup() {
       .setCorrection(TypicalLEDStrip);
 
   FastLED.setBrightness(50);
-  fill_solid(leds, NUM_LEDS, CRGB::Black);
+  fill_solid(leds, NUM_LEDS, CRGB::White);
   FastLED.show();
 
   Serial.println("Connecting to WiFi...");
-  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  WiFi.begin(getSSID(), getPWD());
 
   int retries = 0;
   while (WiFi.status() != WL_CONNECTED) {
@@ -156,6 +154,7 @@ void loop() {
     fetchState();
   }
 
+ /*
   FastLED.setBrightness(currentState.brightness);
 
   if (currentState.mode == "solid")
@@ -173,6 +172,7 @@ void loop() {
 
   FastLED.show();
 
+ */
   animTick++;
   delay(16);
 }
