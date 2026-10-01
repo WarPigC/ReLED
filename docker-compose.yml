@@ -1,15 +1,40 @@
 services:
   reled:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+      platforms:
+        - linux/arm64
     container_name: reled
-    restart: unless-stopped
     ports:
       - "9000:8000"
+
     volumes:
       # Named volume keeps led.db alive across restarts and image rebuilds
       - reled-data:/app/data
+
     environment:
       - DB_DIR=/app/data
 
+    restart: unless-stopped
+
+    # ── Resource limits for Pi 5 (4GB RAM) ──
+    mem_limit: 128m
+    memswap_limit: 192m
+
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/state')",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
 volumes:
   reled-data:
+    driver: local
