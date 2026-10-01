@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-cd /home/archani/Projects/remoteLED
+cd /home/piani/hdd/reLED
 
 git pull --ff-only
 docker compose up --build -d --remove-orphans

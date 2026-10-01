@@ -17,4 +17,4 @@ jobs:
           host: ${{ secrets.PI_HOST }}
           username: ${{ secrets.PI_USER }}
           key: ${{ secrets.PI_SSH_KEY }}
-          script: bash /home/archani/Projects/remoteLED/deploy.sh
+          script: bash /home/piani/hdd/reLED/deploy.sh
