@@ -7,18 +7,14 @@ on:
 
 jobs:
   deploy:
-    name: Build & Deploy on Pi
-    # This runs directly on your Pi 5 (self-hosted runner)
-    runs-on: self-hosted
+    name: SSH & Deploy
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout latest code
-        uses: actions/checkout@v4
-
-      - name: Rebuild and restart container
-        run: |
-          docker compose up --build -d --remove-orphans
-
-      - name: Clean up old images
-        run: |
-          docker image prune -f
+      - name: Run deploy script on Pi
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.PI_HOST }}
+          username: ${{ secrets.PI_USER }}
+          key: ${{ secrets.PI_SSH_KEY }}
+          script: bash /home/archani/Projects/remoteLED/deploy.sh
